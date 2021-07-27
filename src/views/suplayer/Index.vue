@@ -104,7 +104,7 @@
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control border-0" id="labelTelp" placeholder="02245000 / 0812345" v-model="data_suplayer.no_telp">
+                        <input type="number" class="form-control" id="labelTelp" placeholder="02245000 / 0812345" v-model="data_suplayer.no_telp">
                         <label for="labelTelp" class="form-label">No. Telp/HP : </label>
                         <div v-if="validation.no_telp" class="text-danger">
                             {{ validation.no_telp[0] }}
@@ -145,7 +145,7 @@
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control border-0" id="labelTelp" placeholder="02245000 / 0812345" v-model="data_suplayer.no_telp">
+                        <input type="number" class="form-control" id="labelTelp" placeholder="02245000 / 0812345" v-model="data_suplayer.no_telp">
                         <label for="labelTelp" class="form-label">No. Telp/HP : </label>
                         <div v-if="validation.no_telp" class="text-danger">
                             {{ validation.no_telp[0] }}

@@ -45,10 +45,10 @@
                                             <td class="align-middle">{{ bahan_baku.updated_at }}</td>
                                             <td class="align-middle">
                                                 <div class="btn-group float-lg-end mt-3">
-                                                    <button class="btn btn-sm btn-success mb-3 align-middle"  @click.prevent="edit(bahan_baku.id, index)">
+                                                    <button class="btn btn-sm btn-success shadow-sm mb-3 align-middle"  @click.prevent="edit(bahan_baku.id, index)">
                                                         <i class="fas fa-highlighter fa-sm text-white-50"></i> Edit
                                                     </button>
-                                                    <button class="btn btn-sm btn-danger mb-3 align-middle" @click.prevent="confirmDelete(bahan_baku.id, index)">
+                                                    <button class="btn btn-sm btn-danger shadow-sm mb-3 align-middle" @click.prevent="confirmDelete(bahan_baku.id, index)">
                                                         <i class="fas fa-trash fa-sm text-white-50"></i> Delete
                                                     </button>
                                                 </div>

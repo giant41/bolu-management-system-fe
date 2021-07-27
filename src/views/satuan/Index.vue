@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control border-0" id="labelketerangan" placeholder="keterangan" v-model="data_satuan.keterangan">
+                        <textarea class="form-control" placeholder="keterangan" id="labelketerangan" style="height: 100px"  v-model="data_satuan.keterangan"></textarea>
                         <label for="labelketerangan" class="form-label">Keterangan : </label>
                     </div>
                     <div class="mb-3">
@@ -141,7 +141,7 @@
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control border-0" id="labelketerangan" placeholder="keterangan" v-model="data_satuan.keterangan">
+                        <textarea class="form-control" placeholder="keterangan" id="labelketerangan" style="height: 100px"  v-model="data_satuan.keterangan"></textarea>
                         <label for="labelketerangan" class="form-label">Keterangan : </label>
                     </div>
                     <div class="mb-3">

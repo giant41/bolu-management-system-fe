@@ -167,7 +167,7 @@
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control border-0" id="labelJumlah" placeholder="1000" v-model="data_aset.jumlah">
+                        <input type="number" class="form-control" id="labelJumlah" placeholder="1000" v-model="data_aset.jumlah">
                         <label for="labelJumlah" class="form-label">Jumlah Aset : </label>
                         <div v-if="validation.jumlah" class="text-danger">
                             {{ validation.jumlah[0] }}
