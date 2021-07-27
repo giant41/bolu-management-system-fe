@@ -12,9 +12,9 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between m-3 mb-4">
-                        <h1 class="h3 mb-0 text-dark">Satuan Barang</h1>
-                        <button @click="showModal" type="button" class="btn btn-sm btn-primary shadow-sm text-white-60" data-bs-whatever="@mdo">
-                            <i class="fas fa-download fa-sm text-white-60"></i> Tambah Data Satuan
+                        <h1 class="h3 mb-0 text-dark">Data Aset</h1>
+                        <button @click="showModal" type="button" class="btn btn-sm btn-primary shadow-sm text-white-60">
+                            <i class="fas fa-download fa-sm text-white-60"></i> Tambah Data Aset
                         </button>
                     </div>
                     <!-- Content Row -->
@@ -23,32 +23,32 @@
                             <div class="card shadow m-3 mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">List Data Satuan Barang</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">List Data Aset Barang</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <table class="table table-striped table-hover">
                                         <thead>
                                         <tr>
-                                            <th>Nama Satuan</th>
-                                            <th>Simbol</th>
-                                            <th>Keterangan</th>
+                                            <th>Nama Aset</th>
+                                            <th>Tipe Aset</th>
+                                            <th>Jumlah</th>
                                             <th>Tanggal Dibuat</th>
                                             <th class="align-middle"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(satuan, index) in list_data_satuan.data" :key="index">
-                                            <td class="align-middle">{{ satuan.nama_satuan }}</td>
-                                            <td class="align-middle">{{ satuan.simbol_satuan }}</td>
-                                            <td class="align-middle">{{ satuan.keterangan }}</td>
-                                            <td class="align-middle">{{ satuan.created_at }}</td>
+                                        <tr v-for="(aset, index) in list_data_aset.data" :key="index">
+                                            <td class="align-middle">{{ aset.nama_asset }}</td>
+                                            <td class="align-middle">{{ aset.type }}</td>
+                                            <td class="align-middle">{{ aset.jumlah }}</td>
+                                            <td class="align-middle">{{ aset.created_at }}</td>
                                             <td class="align-middle">
                                                 <div class="btn-group float-lg-end mt-3">
-                                                    <button class="btn btn-sm btn-success mb-3 align-middle"  @click.prevent="edit(satuan.id, index)">
+                                                    <button class="btn btn-sm btn-success mb-3 align-middle"  @click.prevent="edit(aset.id, index)">
                                                         <i class="fas fa-highlighter fa-sm text-white-50"></i> Edit
                                                     </button>
-                                                    <button class="btn btn-sm btn-danger mb-3 align-middle" @click.prevent="confirmDelete(satuan.id, index)">
+                                                    <button class="btn btn-sm btn-danger mb-3 align-middle" @click.prevent="confirmDelete(aset.id, index)">
                                                         <i class="fas fa-trash fa-sm text-white-50"></i> Delete
                                                     </button>
                                                 </div>
@@ -79,31 +79,53 @@
     </div>
     <!-- End of Content Wrapper -->
 
-    <div class="modal fade" id="updateSatuan" tabindex="-1" aria-labelledby="updateSatuanLabel" aria-hidden="true">
+    <div class="modal fade" id="updateAset" tabindex="-1" aria-labelledby="updateAsetLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateSatuanLabel">Update Data Satuan</h5>
+                <h5 class="modal-title" id="updateAsetLabel">Update Data Aset</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form @submit.prevent="update()">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="namaSatuan" placeholder="Kilogram" v-model="data_satuan.nama_satuan">
-                        <label for="namaSatuan">Nama Satuan : </label>
-                        <div v-if="validation.nama_satuan" class="text-danger">
-                            {{ validation.nama_satuan[0] }}
+                        <input type="text" class="form-control" id="labelNamaAset" placeholder="Loyang" v-model="data_aset.nama_asset">
+                        <label for="labelNamaAset">Nama Aset : </label>
+                        <div v-if="validation.nama_asset" class="text-danger">
+                            {{ validation.nama_asset[0] }}
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="simbolSatuan"  placeholder="Kg" v-model="data_satuan.simbol_satuan">
-                        <label for="simbolSatuan" class="form-label">Simbol Satuan : </label>
-                        <div v-if="validation.simbol_satuan" class="text-danger">
-                            {{ validation.simbol_satuan[0] }}
+                        <select class="form-select" id="floatingSelect" v-model="data_aset.type">
+                            <option selected>Pilih tipe aset</option>
+                            <option value="aset">aset</option>
+                            <option value="operasional">operasional</option>
+                        </select>
+                        <label for="floatingSelect">Tipe Aset : </label>
+                        <div v-if="validation.type" class="text-danger">
+                            {{ validation.type[0] }}
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control border-0" id="labelketerangan" placeholder="keterangan" v-model="data_satuan.keterangan">
+                        <input type="number" class="form-control border-0" id="labelJumlah" placeholder="1000" v-model="data_aset.jumlah">
+                        <label for="labelJumlah" class="form-label">Jumlah Aset : </label>
+                        <div v-if="validation.jumlah" class="text-danger">
+                            {{ validation.jumlah[0] }}
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="floatingSelect" v-model="data_aset.satuan">
+                            <option v-for="satuan in list_data_satuan.data" v-bind:value="satuan.id">
+                                {{satuan.nama_satuan}}
+                            </option>
+                        </select>
+                        <label for="floatingSelect">Satuan : </label>
+                        <div v-if="validation.type" class="text-danger">
+                            {{ validation.type[0] }}
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="keterangan" id="labelketerangan" style="height: 100px"  v-model="data_aset.keterangan"></textarea>
                         <label for="labelketerangan" class="form-label">Keterangan : </label>
                     </div>
                     <div class="mb-3">
@@ -117,31 +139,53 @@
         </div>
     </div>
 
-    <div class="modal fade" id="tambahSatuan" tabindex="-1" aria-labelledby="tambahSatuanLabel" aria-hidden="true">
+    <div class="modal fade" id="tambahAset" tabindex="-1" aria-labelledby="tambahSatuanLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tambahSatuanLabel">Tambah Data Satuan</h5>
+                <h5 class="modal-title" id="tambahSatuanLabel">Tambah Data Aset</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form @submit.prevent="store()">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="namaSatuan" placeholder="Kilogram" v-model="data_satuan.nama_satuan">
-                        <label for="namaSatuan">Nama Satuan : </label>
-                        <div v-if="validation.nama_satuan" class="text-danger">
-                            {{ validation.nama_satuan[0] }}
+                        <input type="text" class="form-control" id="labelNamaAset" placeholder="Loyang" v-model="data_aset.nama_asset">
+                        <label for="labelNamaAset">Nama Aset : </label>
+                        <div v-if="validation.nama_asset" class="text-danger">
+                            {{ validation.nama_asset[0] }}
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="simbolSatuan"  placeholder="Kg" v-model="data_satuan.simbol_satuan">
-                        <label for="simbolSatuan" class="form-label">Simbol Satuan : </label>
-                        <div v-if="validation.simbol_satuan" class="text-danger">
-                            {{ validation.simbol_satuan[0] }}
+                        <select class="form-select" id="floatingSelect" v-model="data_aset.type">
+                            <option selected>Pilih tipe aset</option>
+                            <option value="aset">aset</option>
+                            <option value="operasional">operasional</option>
+                        </select>
+                        <label for="floatingSelect">Tipe Aset : </label>
+                        <div v-if="validation.type" class="text-danger">
+                            {{ validation.type[0] }}
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control border-0" id="labelketerangan" placeholder="keterangan" v-model="data_satuan.keterangan">
+                        <input type="number" class="form-control border-0" id="labelJumlah" placeholder="1000" v-model="data_aset.jumlah">
+                        <label for="labelJumlah" class="form-label">Jumlah Aset : </label>
+                        <div v-if="validation.jumlah" class="text-danger">
+                            {{ validation.jumlah[0] }}
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="floatingSelect" v-model="data_aset.satuan">
+                            <option v-for="satuan in list_data_satuan.data" v-bind:value="satuan.id">
+                                {{satuan.nama_satuan}}
+                            </option>
+                        </select>
+                        <label for="floatingSelect">Satuan : </label>
+                        <div v-if="validation.type" class="text-danger">
+                            {{ validation.type[0] }}
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="keterangan" id="labelketerangan" style="height: 100px"  v-model="data_aset.keterangan"></textarea>
                         <label for="labelketerangan" class="form-label">Keterangan : </label>
                     </div>
                     <div class="mb-3">
@@ -174,13 +218,16 @@ export default {
     },
     setup() {
         // data binding
-        const data_satuan = reactive({
-            'nama_satuan': '',
-            'simbol_satuan': '',
+        const data_aset = reactive({
+            'nama_asset': '',
+            'type': '',
+            'jumlah': '',
+            'satuan': '',
             'keterangan': '',
         });
 
         // reactive state
+        let list_data_aset = ref([]);
         let list_data_satuan = ref([]);
         const validation = ref([]);
         const Swal = useSwal();
@@ -213,9 +260,9 @@ export default {
         }
 
         function getData(page) {
-            axios.post(`satuan/list`, data_perpage)
+            axios.post(`aset/list`, data_perpage)
             .then((result) => {
-                list_data_satuan.value = result.data
+                list_data_aset.value = result.data
                 currentPage.value = page; 
                 total.value = result.data.total;
             }).catch((err) => {
@@ -223,36 +270,50 @@ export default {
             });
         }
 
+        function getDataSatuan() {
+            axios.get(`satuan`)
+            .then((result) => {
+                list_data_satuan.value = result.data
+            }).catch((err) => {
+                console.log(err.response)
+            });
+        }
+
         function showModal() {
-            $('#tambahSatuan').modal('show');
-            this.data_satuan.nama_satuan = ''
-            this.data_satuan.simbol_satuan = ''
-            this.data_satuan.keterangan = ''
+            this.getDataSatuan();
+            this.data_aset.nama_asset = ''
+            this.data_aset.type = ''
+            this.data_aset.jumlah = ''
+            this.data_aset.satuan = '';
+            this.data_aset.keterangan = ''
+            this.selected = 'ox'
             validation.value = ''
+
+            $('#tambahAset').modal('show');
         }
 
         function hideModal() {
-            $('#tambahSatuan').modal('hide');
+            $('#tambahAset').modal('hide');
         }
 
         function showModalEdit() {
-            $('#updateSatuan').modal('show');
+            $('#updateAset').modal('show');
         }
 
         function hideModalEdit() {
-            $('#updateSatuan').modal('hide');
-            this.data_satuan.nama_satuan = ''
-            this.data_satuan.simbol_satuan = ''
-            this.data_satuan.keterangan = ''
+            $('#updateAset').modal('hide');
+            this.data_aset.nama_asset = ''
+            this.data_aset.type = ''
+            this.data_aset.jumlah = ''
+            this.data_aset.satuan = ''
+            this.data_aset.keterangan = ''
             validation.value = ''
         }
 
         function store() {
-            axios.post('satuan', data_satuan)
-            
-            .then((result) => {
+            axios.post('aset', data_aset)
+            .then(() => {
                 this.hideModal()
-                // list_data_satuan.value.data.unshift(result.data.data);
                 let first_page = 1;
                 getData(first_page);
             }).catch((err) => {
@@ -263,13 +324,15 @@ export default {
         }
 
         function edit(id, index) {
-            axios.get(`satuan/${id}`)
+            axios.get(`aset/${id}`)
             .then((result) => {
-                data_satuan.id = index
-                data_satuan.data_id = result.data.data.id
-                data_satuan.nama_satuan = result.data.data.nama_satuan
-                data_satuan.simbol_satuan = result.data.data.simbol_satuan
-                data_satuan.keterangan = result.data.data.keterangan
+                data_aset.id = index
+                data_aset.data_id = result.data.data.id
+                data_aset.nama_asset = result.data.data.nama_asset
+                data_aset.type = result.data.data.type
+                data_aset.jumlah = result.data.data.jumlah
+                data_aset.satuan = result.data.data.satuan
+                data_aset.keterangan = result.data.data.keterangan
                 showModalEdit()
             }).catch((err) => {
                 console.log("something error")
@@ -277,7 +340,7 @@ export default {
         }
 
         function update() {
-            axios.put(`satuan/${data_satuan.data_id}`, data_satuan)
+            axios.put(`aset/${data_aset.data_id}`, data_aset)
             .then((result) => {
                 this.hideModalEdit()
                 getData(currentPage.value);
@@ -299,7 +362,7 @@ export default {
                 timer: 10000
             }).then((result) => {
                 if (result.value) {
-                    axios.delete(`satuan/${id}`)
+                    axios.delete(`aset/${id}`)
                     .then(() => {
                         Swal.fire({
                             icon: "success",
@@ -323,8 +386,9 @@ export default {
         }
 
         return {
+            list_data_aset,
             list_data_satuan,
-            data_satuan,
+            data_aset,
             data_perpage,
             validation,
             showModal,
@@ -337,6 +401,7 @@ export default {
             confirmDelete,
             onPageClick,
             getData,
+            getDataSatuan,
             searchData,
             currentPage,
             perPage,

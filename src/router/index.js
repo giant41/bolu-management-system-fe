@@ -26,16 +26,26 @@ const routes = [
         name: 'satuan.index',
         component: () => import("../views/satuan/Index.vue")
     },
+    // {
+    //     path: '/satuan/create',
+    //     name: 'satuan.create',
+    //     component: () => import("../views/satuan/Create.vue")
+    // },
+    // {
+    //     path: '/satuan/edit/:id',
+    //     name: 'satuan.edit',
+    //     component: () => import("../views/satuan/Edit.vue")
+    // }
     {
-        path: '/satuan/create',
-        name: 'satuan.create',
-        component: () => import("../views/satuan/Create.vue")
-    },
+        path: '/suplayer',
+        name: 'suplayer.index',
+        component: () => import("../views/suplayer/Index.vue")
+    },    
     {
-        path: '/satuan/edit/:id',
-        name: 'satuan.edit',
-        component: () => import("../views/satuan/Edit.vue")
-    }
+        path: '/aset',
+        name: 'aset.index',
+        component: () => import("../views/aset/Index.vue")
+    },    
 ]
 
 const router = createRouter({

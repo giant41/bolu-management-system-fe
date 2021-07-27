@@ -1,3 +1,4 @@
+
 <template>
     <div id="wrapper">
         <SideBar />
@@ -12,9 +13,9 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between m-3 mb-4">
-                        <h1 class="h3 mb-0 text-dark">Satuan Barang</h1>
-                        <button @click="showModal" type="button" class="btn btn-sm btn-primary shadow-sm text-white-60" data-bs-whatever="@mdo">
-                            <i class="fas fa-download fa-sm text-white-60"></i> Tambah Data Satuan
+                        <h1 class="h3 mb-0 text-dark">Data Suplayer</h1>
+                        <button @click="showModal" type="button" class="btn btn-sm btn-primary shadow-sm text-white-60">
+                            <i class="fas fa-download fa-sm text-white-60"></i> Tambah Data Suplayer
                         </button>
                     </div>
                     <!-- Content Row -->
@@ -23,32 +24,32 @@
                             <div class="card shadow m-3 mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">List Data Satuan Barang</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">List Data Suplayer</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <table class="table table-striped table-hover">
                                         <thead>
                                         <tr>
-                                            <th>Nama Satuan</th>
-                                            <th>Simbol</th>
-                                            <th>Keterangan</th>
+                                            <th>Nama Suplayer</th>
+                                            <th>Alamat</th>
+                                            <th>No Telp/HP</th>
                                             <th>Tanggal Dibuat</th>
                                             <th class="align-middle"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(satuan, index) in list_data_satuan.data" :key="index">
-                                            <td class="align-middle">{{ satuan.nama_satuan }}</td>
-                                            <td class="align-middle">{{ satuan.simbol_satuan }}</td>
-                                            <td class="align-middle">{{ satuan.keterangan }}</td>
-                                            <td class="align-middle">{{ satuan.created_at }}</td>
+                                        <tr v-for="(suplayer, index) in list_data_suplayer.data" :key="index">
+                                            <td class="align-middle">{{ suplayer.nama_suplayer }}</td>
+                                            <td class="align-middle">{{ suplayer.alamat }}</td>
+                                            <td class="align-middle">{{ suplayer.no_telp }}</td>
+                                            <td class="align-middle">{{ suplayer.created_at }}</td>
                                             <td class="align-middle">
                                                 <div class="btn-group float-lg-end mt-3">
-                                                    <button class="btn btn-sm btn-success mb-3 align-middle"  @click.prevent="edit(satuan.id, index)">
+                                                    <button class="btn btn-sm btn-success mb-3 align-middle"  @click.prevent="edit(suplayer.id, index)">
                                                         <i class="fas fa-highlighter fa-sm text-white-50"></i> Edit
                                                     </button>
-                                                    <button class="btn btn-sm btn-danger mb-3 align-middle" @click.prevent="confirmDelete(satuan.id, index)">
+                                                    <button class="btn btn-sm btn-danger mb-3 align-middle" @click.prevent="confirmDelete(suplayer.id, index)">
                                                         <i class="fas fa-trash fa-sm text-white-50"></i> Delete
                                                     </button>
                                                 </div>
@@ -79,32 +80,35 @@
     </div>
     <!-- End of Content Wrapper -->
 
-    <div class="modal fade" id="updateSatuan" tabindex="-1" aria-labelledby="updateSatuanLabel" aria-hidden="true">
+    <div class="modal fade" id="updateSuplayer" tabindex="-1" aria-labelledby="updateSuplayerLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateSatuanLabel">Update Data Satuan</h5>
+                <h5 class="modal-title" id="updateSuplayerLabel">Update Data Satuan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form @submit.prevent="update()">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="namaSatuan" placeholder="Kilogram" v-model="data_satuan.nama_satuan">
-                        <label for="namaSatuan">Nama Satuan : </label>
-                        <div v-if="validation.nama_satuan" class="text-danger">
-                            {{ validation.nama_satuan[0] }}
+                        <input type="text" class="form-control" id="labelSuplayer" placeholder="PT. Angin Ribut" v-model="data_suplayer.nama_suplayer">
+                        <label for="labelSuplayer">Nama Suplayer : </label>
+                        <div v-if="validation.nama_suplayer" class="text-danger">
+                            {{ validation.nama_suplayer[0] }}
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="simbolSatuan"  placeholder="Kg" v-model="data_satuan.simbol_satuan">
-                        <label for="simbolSatuan" class="form-label">Simbol Satuan : </label>
-                        <div v-if="validation.simbol_satuan" class="text-danger">
-                            {{ validation.simbol_satuan[0] }}
+                        <input type="text" class="form-control" id="labelAlamat"  placeholder="Jl. Babakan Tarogong No. 1000" v-model="data_suplayer.alamat">
+                        <label for="labelAlamat" class="form-label">Alamat Suplayer : </label>
+                        <div v-if="validation.alamat" class="text-danger">
+                            {{ validation.alamat[0] }}
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control border-0" id="labelketerangan" placeholder="keterangan" v-model="data_satuan.keterangan">
-                        <label for="labelketerangan" class="form-label">Keterangan : </label>
+                        <input type="number" class="form-control border-0" id="labelTelp" placeholder="02245000 / 0812345" v-model="data_suplayer.no_telp">
+                        <label for="labelTelp" class="form-label">No. Telp/HP : </label>
+                        <div v-if="validation.no_telp" class="text-danger">
+                            {{ validation.no_telp[0] }}
+                        </div>
                     </div>
                     <div class="mb-3">
                         <button class="btn btn-danger btn-sm float-end">
@@ -117,32 +121,35 @@
         </div>
     </div>
 
-    <div class="modal fade" id="tambahSatuan" tabindex="-1" aria-labelledby="tambahSatuanLabel" aria-hidden="true">
+    <div class="modal fade" id="tambahSuplayer" tabindex="-1" aria-labelledby="tambahSuplayerLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tambahSatuanLabel">Tambah Data Satuan</h5>
+                <h5 class="modal-title" id="tambahSuplayerLabel">Tambah Data Suplayer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form @submit.prevent="store()">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="namaSatuan" placeholder="Kilogram" v-model="data_satuan.nama_satuan">
-                        <label for="namaSatuan">Nama Satuan : </label>
-                        <div v-if="validation.nama_satuan" class="text-danger">
-                            {{ validation.nama_satuan[0] }}
+                        <input type="text" class="form-control" id="labelSuplayer" placeholder="PT. Angin Ribut" v-model="data_suplayer.nama_suplayer">
+                        <label for="labelSuplayer">Nama Suplayer : </label>
+                        <div v-if="validation.nama_suplayer" class="text-danger">
+                            {{ validation.nama_suplayer[0] }}
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="simbolSatuan"  placeholder="Kg" v-model="data_satuan.simbol_satuan">
-                        <label for="simbolSatuan" class="form-label">Simbol Satuan : </label>
-                        <div v-if="validation.simbol_satuan" class="text-danger">
-                            {{ validation.simbol_satuan[0] }}
+                        <input type="text" class="form-control" id="labelAlamat"  placeholder="Jl. Babakan Tarogong No. 1000" v-model="data_suplayer.alamat">
+                        <label for="labelAlamat" class="form-label">Alamat Suplayer : </label>
+                        <div v-if="validation.alamat" class="text-danger">
+                            {{ validation.alamat[0] }}
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control border-0" id="labelketerangan" placeholder="keterangan" v-model="data_satuan.keterangan">
-                        <label for="labelketerangan" class="form-label">Keterangan : </label>
+                        <input type="number" class="form-control border-0" id="labelTelp" placeholder="02245000 / 0812345" v-model="data_suplayer.no_telp">
+                        <label for="labelTelp" class="form-label">No. Telp/HP : </label>
+                        <div v-if="validation.no_telp" class="text-danger">
+                            {{ validation.no_telp[0] }}
+                        </div>
                     </div>
                     <div class="mb-3">
                         <button class="btn btn-danger btn-sm float-right">
@@ -174,14 +181,14 @@ export default {
     },
     setup() {
         // data binding
-        const data_satuan = reactive({
-            'nama_satuan': '',
-            'simbol_satuan': '',
-            'keterangan': '',
+        const data_suplayer = reactive({
+            'nama_suplayer': '',
+            'alamat': '',
+            'no_telp': '',
         });
 
         // reactive state
-        let list_data_satuan = ref([]);
+        let list_data_suplayer = ref([]);
         const validation = ref([]);
         const Swal = useSwal();
         let currentPage = ref();
@@ -213,9 +220,9 @@ export default {
         }
 
         function getData(page) {
-            axios.post(`satuan/list`, data_perpage)
+            axios.post(`suplayer/list`, data_perpage)
             .then((result) => {
-                list_data_satuan.value = result.data
+                list_data_suplayer.value = result.data
                 currentPage.value = page; 
                 total.value = result.data.total;
             }).catch((err) => {
@@ -224,31 +231,31 @@ export default {
         }
 
         function showModal() {
-            $('#tambahSatuan').modal('show');
-            this.data_satuan.nama_satuan = ''
-            this.data_satuan.simbol_satuan = ''
-            this.data_satuan.keterangan = ''
+            $('#tambahSuplayer').modal('show');
+            this.data_suplayer.nama_suplayer = ''
+            this.data_suplayer.alamat = ''
+            this.data_suplayer.no_telp = ''
             validation.value = ''
         }
 
         function hideModal() {
-            $('#tambahSatuan').modal('hide');
+            $('#tambahSuplayer').modal('hide');
         }
 
         function showModalEdit() {
-            $('#updateSatuan').modal('show');
+            $('#updateSuplayer').modal('show');
         }
 
         function hideModalEdit() {
-            $('#updateSatuan').modal('hide');
-            this.data_satuan.nama_satuan = ''
-            this.data_satuan.simbol_satuan = ''
-            this.data_satuan.keterangan = ''
+            $('#updateSuplayer').modal('hide');
+            this.data_suplayer.nama_suplayer = ''
+            this.data_suplayer.alamat = ''
+            this.data_suplayer.no_telp = ''
             validation.value = ''
         }
 
         function store() {
-            axios.post('satuan', data_satuan)
+            axios.post('suplayer', data_suplayer)
             
             .then((result) => {
                 this.hideModal()
@@ -263,13 +270,13 @@ export default {
         }
 
         function edit(id, index) {
-            axios.get(`satuan/${id}`)
+            axios.get(`suplayer/${id}`)
             .then((result) => {
-                data_satuan.id = index
-                data_satuan.data_id = result.data.data.id
-                data_satuan.nama_satuan = result.data.data.nama_satuan
-                data_satuan.simbol_satuan = result.data.data.simbol_satuan
-                data_satuan.keterangan = result.data.data.keterangan
+                data_suplayer.id = index
+                data_suplayer.data_id = result.data.data.id
+                data_suplayer.nama_suplayer = result.data.data.nama_suplayer
+                data_suplayer.alamat = result.data.data.alamat
+                data_suplayer.no_telp = result.data.data.no_telp
                 showModalEdit()
             }).catch((err) => {
                 console.log("something error")
@@ -277,7 +284,7 @@ export default {
         }
 
         function update() {
-            axios.put(`satuan/${data_satuan.data_id}`, data_satuan)
+            axios.put(`suplayer/${data_suplayer.data_id}`, data_suplayer)
             .then((result) => {
                 this.hideModalEdit()
                 getData(currentPage.value);
@@ -299,7 +306,7 @@ export default {
                 timer: 10000
             }).then((result) => {
                 if (result.value) {
-                    axios.delete(`satuan/${id}`)
+                    axios.delete(`suplayer/${id}`)
                     .then(() => {
                         Swal.fire({
                             icon: "success",
@@ -323,8 +330,8 @@ export default {
         }
 
         return {
-            list_data_satuan,
-            data_satuan,
+            list_data_suplayer,
+            data_suplayer,
             data_perpage,
             validation,
             showModal,
