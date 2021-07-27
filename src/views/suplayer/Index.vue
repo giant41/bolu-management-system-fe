@@ -320,7 +320,7 @@ export default {
                         console.log(err.response.data)
                         Swal.fire({
                             icon: "error",
-                            text: "ada kesalahn data gagal dihapus",
+                            text: "ada kesalahan, data gagal dihapus!",
                             showConfirmButton: false,
                             timer: 3000
                         });

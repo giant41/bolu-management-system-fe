@@ -115,7 +115,7 @@
                     </div>
                     <div class="form-floating mb-3">
                         <select class="form-select" id="floatingSelect" v-model="data_aset.satuan">
-                            <option v-for="satuan in list_data_satuan.data" v-bind:value="satuan.id">
+                            <option v-for="(satuan, index) in list_data_satuan.data" :key="index" v-bind:value="satuan.id">
                                 {{satuan.nama_satuan}}
                             </option>
                         </select>
@@ -175,7 +175,7 @@
                     </div>
                     <div class="form-floating mb-3">
                         <select class="form-select" id="floatingSelect" v-model="data_aset.satuan">
-                            <option v-for="satuan in list_data_satuan.data" v-bind:value="satuan.id">
+                            <option v-for="(satuan, index) in list_data_satuan.data" :key="index" v-bind:value="satuan.id">
                                 {{satuan.nama_satuan}}
                             </option>
                         </select>
@@ -324,6 +324,7 @@ export default {
         }
 
         function edit(id, index) {
+            this.getDataSatuan();
             axios.get(`aset/${id}`)
             .then((result) => {
                 data_aset.id = index
@@ -376,7 +377,7 @@ export default {
                         console.log(err.response.data)
                         Swal.fire({
                             icon: "error",
-                            text: "ada kesalahn data gagal dihapus",
+                            text: "ada kesalahan, data gagal dihapus!",
                             showConfirmButton: false,
                             timer: 3000
                         });

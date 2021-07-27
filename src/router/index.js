@@ -46,6 +46,11 @@ const routes = [
         name: 'aset.index',
         component: () => import("../views/aset/Index.vue")
     },    
+    {
+        path: '/bahan-baku',
+        name: 'bahanBaku.index',
+        component: () => import("../views/bahan_baku/Index.vue")
+    },    
 ]
 
 const router = createRouter({
