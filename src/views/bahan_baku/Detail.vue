@@ -9,53 +9,92 @@
                     @send-keyword="searchData($event)" />
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between m-3 mb-4">
                         <h1 class="h3 mb-0 text-dark">Data Bahan Baku</h1>
-                        <button @click="showModal" type="button" class="btn btn-sm btn-primary shadow-sm text-white-60">
+                        <!-- <div class="col-2"> -->
+                            <router-link 
+                                :to="{ name: 'bahanBaku.index' }"
+                                class="btn btn-sm btn-primary shadow-sm text-white-60"
+                            >Back</router-link>
+                        <!-- </div> -->
+                        <!-- <button @click="showModal" type="button" class="btn btn-sm btn-primary shadow-sm text-white-60">
                             <i class="fas fa-download fa-sm text-white-60"></i> Tambah Data Bahan Baku
-                        </button>
+                        </button> -->
                     </div>
                     <!-- Content Row -->
                     <div class="row">
+
+                        <!-- Content Column -->
+                        <div class="col-lg-8  m-3  mb-0">
+                            <!-- Color System -->
+                            <div class="row">
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-success text-white shadow">
+                                        <div class="card-body" v-if="detail_bahan_baku">
+                                            <div class="row">
+                                                <div class="col-sm-4 text-white-50 small">Bahan Baku</div>
+                                                <div class="col-sm-1 text-white-50 small"> : </div>
+                                                <div class="col-sm-7" v-if="detail_bahan_baku">{{detail_bahan_baku.data.nama_bahan_baku}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4 text-white-50 small">Jumlah Stok</div>
+                                                <div class="col-sm-1 text-white-50 small"> : </div>
+                                                <div class="col-sm-7" v-if="detail_bahan_baku">{{detail_bahan_baku.data.stok}} {{detail_bahan_baku.data.satuan.simbol_satuan}}</div>
+                                            </div>
+                                            <hr class="sidebar-divider">
+                                            <div class="row">
+                                                <div class="col-sm-4 text-white-50 small">Created At</div>
+                                                <div class="col-sm-1 text-white-50 small"> : </div>
+                                                <div class="col-sm-7" v-if="detail_bahan_baku">{{detail_bahan_baku.data.created_at}}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4 text-white-50 small">Updated At</div>
+                                                <div class="col-sm-1 text-white-50 small"> : </div>
+                                                <div class="col-sm-7" v-if="detail_bahan_baku">{{detail_bahan_baku.data.updated_at}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-xl-12">
                             <div class="card shadow m-3 mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">List Data Bahan Baku</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Histori Pemesanan Bahan Baku</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <table class="table table-striped table-hover">
                                         <thead>
                                         <tr>
-                                            <th>Nama Bahan Baku</th>
-                                            <th>Jumlah Stok</th>
-                                            <th>Tanggal Dibuat</th>
-                                            <th>Tanggal Update</th>
-                                            <th class="align-middle"></th>
+                                            <th>Tanggal Input</th>
+                                            <th>No. Faktur</th>
+                                            <th>Suplayer</th>
+                                            <th>Harga Satuan</th>
+                                            <th>Jumlah (Qty)</th>
+                                            <!-- <th class="align-middle"></th> -->
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(bahan_baku, index) in list_data_bahan_baku.data" :key="index">
-                                            <td class="align-middle">{{ bahan_baku.nama_bahan_baku }}</td>
-                                            <td class="align-middle">{{ bahan_baku.stok }} {{ bahan_baku.satuan.simbol_satuan }} </td>
-                                            <td class="align-middle">{{ bahan_baku.created_at }}</td>
-                                            <td class="align-middle">{{ bahan_baku.updated_at }}</td>
-                                            <td class="align-middle">
+                                        <tr v-for="(detail, index) in list_data_bahan_baku_detail.data" :key="index">
+                                            <td class="align-middle">{{ detail.created_at }}</td>
+                                            <td class="align-middle">{{ detail.faktur.nomor_faktur }}</td>
+                                            <td class="align-middle">{{ detail.suplayer.nama_suplayer }}</td>
+                                            <td class="align-middle">{{ detail.bahan_baku.harga_satuan }}</td>
+                                            <td class="align-middle">{{ detail.bahan_baku.jumlah_stok }} {{ detail.bahan_baku.simbol_satuan }}</td>
+                                            <!-- <td class="align-middle">
                                                 <div class="btn-group float-lg-end mt-2">
-                                                    <router-link :to="{ name:'bahanBaku.detail', params:{id:bahan_baku.id}}" class="btn btn-sm btn-primary shadow-sm mb-2">
-                                                        <i class="fas fa-plus fa-sm text-white-50"></i> Stok
-                                                    </router-link>
-                                                    <button class="btn btn-sm btn-success shadow-sm mb-2"  @click.prevent="edit(bahan_baku.id, index)">
+                                                    <button class="btn btn-sm btn-success shadow-sm mb-2"  @click.prevent="edit(detail.bahan_baku.id, index)">
                                                         <i class="fas fa-highlighter fa-sm text-white-50"></i> Edit
                                                     </button>
-                                                    <button class="btn btn-sm btn-danger shadow-sm mb-2" @click.prevent="confirmDelete(bahan_baku.id, index)">
+                                                    <button class="btn btn-sm btn-danger shadow-sm mb-2" @click.prevent="confirmDelete(detail.bahan_baku.id, index)">
                                                         <i class="fas fa-trash fa-sm text-white-50"></i> Delete
                                                     </button>
                                                 </div>
-                                            </td>
+                                            </td> -->
                                         </tr>    
                                         </tbody>
                                     </table>
@@ -166,6 +205,7 @@ import DashboardFooter from "../../components/DashboardFooter.vue";
 import Pagination from "../../components/Pagination.vue";
 import axios from 'axios';
 import { reactive, onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router'
 import { useSwal } from "../../useSwal";
 
 export default {
@@ -184,7 +224,8 @@ export default {
         });
 
         // reactive state
-        let list_data_bahan_baku = ref([]);
+        let detail_bahan_baku = ref();
+        let list_data_bahan_baku_detail = ref([]);
         let list_data_satuan = ref([]);
         const validation = ref([]);
         const Swal = useSwal();
@@ -192,34 +233,46 @@ export default {
         let perPage = 10;
         let total = ref();
         let keyword = ref();
+        const route = useRoute();
 
         const data_perpage = reactive({
             'page' : currentPage,
             'per_page': perPage,
-            'keyword': keyword
+            'keyword': keyword,
+            'id': route.params.id
         });
 
         onMounted(() => {
             // get data from api endpoint
             let first_page = 1;
-            getData(first_page);
+            getDataDetail(first_page);
+            getData();
         });
 
         function onPageClick(event) {
             this.currentPage = event;
-            this.getData(this.currentPage);
+            this.getDataDetail(this.currentPage);
         }
 
         function searchData(event) {
             keyword.value = event;
             this.currentPage = 1;
-            this.getData(this.currentPage);
+            this.getDataDetail(this.currentPage);
         }
 
-        function getData(page) {
-            axios.post(`bahan-baku/list`, data_perpage)
+        function getData() {
+            axios.get(`bahan-baku/${route.params.id}`)
+            .then((res) => {
+                detail_bahan_baku.value = res.data
+            }).catch((err) => {
+                console.log(err.response)
+            });
+        }
+
+        function getDataDetail(page) {
+            axios.post(`bahan-baku-detail/list`, data_perpage)
             .then((result) => {
-                list_data_bahan_baku.value = result.data
+                list_data_bahan_baku_detail.value = result.data
                 currentPage.value = page; 
                 total.value = result.data.total;
             }).catch((err) => {
@@ -333,7 +386,8 @@ export default {
         }
 
         return {
-            list_data_bahan_baku,
+            list_data_bahan_baku_detail,
+            detail_bahan_baku,
             list_data_satuan,
             data_bahan_baku,
             data_perpage,
@@ -348,6 +402,7 @@ export default {
             confirmDelete,
             onPageClick,
             getData,
+            getDataDetail,
             getDataSatuan,
             searchData,
             currentPage,

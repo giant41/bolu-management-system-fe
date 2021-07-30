@@ -15,9 +15,10 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-      <a class="nav-link" href="../dashboard">
+      <router-link class="nav-link" :to="{ name: 'dashboard.index' }">
         <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+        <span>Dashboard</span>
+      </router-link>
     </li>
 
     <!-- Divider -->
@@ -51,7 +52,6 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Data Produksi :</h6>
           <a class="collapse-item" href="../produksi">Produksi</a>
-          <a class="collapse-item" href="../bahan-baku">Bahan Baku</a>
           <a class="collapse-item" href="../resep">Resep</a>
         </div>
       </div>
@@ -65,10 +65,13 @@
       </a>
       <div id="basicData" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Bahan Baku :</h6>
+          <router-link class="collapse-item" :to="{ name: 'bahanBaku.index' }">Bahan Baku</router-link>
+          <router-link class="collapse-item" :to="{ name: 'bahanBaku.order' }">Pemesanan Bahan Baku</router-link>
           <h6 class="collapse-header">Basic Data :</h6>
-          <a class="collapse-item" href="../satuan">Type Satuan Barang</a>
-          <a class="collapse-item" href="../suplayer">Data Suplayer</a>
-          <a class="collapse-item" href="../aset">Data Asset</a>
+          <router-link class="collapse-item" :to="{ name: 'satuan.index' }">Type Satuan Barang</router-link>
+          <router-link class="collapse-item" :to="{ name: 'suplayer.index' }">Data Suplayer</router-link>
+          <router-link class="collapse-item" :to="{ name: 'aset.index' }">Data Asset</router-link>
         </div>
       </div>
     </li>

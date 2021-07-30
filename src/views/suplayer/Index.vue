@@ -45,11 +45,11 @@
                                             <td class="align-middle">{{ suplayer.no_telp }}</td>
                                             <td class="align-middle">{{ suplayer.created_at }}</td>
                                             <td class="align-middle">
-                                                <div class="btn-group float-lg-end mt-3">
-                                                    <button class="btn btn-sm btn-success mb-3 align-middle"  @click.prevent="edit(suplayer.id, index)">
+                                                <div class="btn-group float-lg-end mt-2">
+                                                    <button class="btn btn-sm btn-success mb-2"  @click.prevent="edit(suplayer.id, index)">
                                                         <i class="fas fa-highlighter fa-sm text-white-50"></i> Edit
                                                     </button>
-                                                    <button class="btn btn-sm btn-danger mb-3 align-middle" @click.prevent="confirmDelete(suplayer.id, index)">
+                                                    <button class="btn btn-sm btn-danger mb-2" @click.prevent="confirmDelete(suplayer.id, index)">
                                                         <i class="fas fa-trash fa-sm text-white-50"></i> Delete
                                                     </button>
                                                 </div>
