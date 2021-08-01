@@ -67,7 +67,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Bahan Baku :</h6>
           <router-link class="collapse-item" :to="{ name: 'bahanBaku.index' }">Bahan Baku</router-link>
-          <router-link class="collapse-item" :to="{ name: 'bahanBaku.order' }">Pemesanan Bahan Baku</router-link>
+          <router-link class="collapse-item" :to="{ name: 'bahanBaku.listOrder' }">Pemesanan Bahan Baku</router-link>
           <h6 class="collapse-header">Basic Data :</h6>
           <router-link class="collapse-item" :to="{ name: 'satuan.index' }">Type Satuan Barang</router-link>
           <router-link class="collapse-item" :to="{ name: 'suplayer.index' }">Data Suplayer</router-link>

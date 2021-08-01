@@ -33,7 +33,6 @@
                                             <th>Nama Bahan Baku</th>
                                             <th>Jumlah Stok</th>
                                             <th>Tanggal Dibuat</th>
-                                            <th>Tanggal Update</th>
                                             <th class="align-middle"></th>
                                         </tr>
                                         </thead>
@@ -42,11 +41,10 @@
                                             <td class="align-middle">{{ bahan_baku.nama_bahan_baku }}</td>
                                             <td class="align-middle">{{ bahan_baku.stok }} {{ bahan_baku.satuan.simbol_satuan }} </td>
                                             <td class="align-middle">{{ bahan_baku.created_at }}</td>
-                                            <td class="align-middle">{{ bahan_baku.updated_at }}</td>
                                             <td class="align-middle">
                                                 <div class="btn-group float-lg-end mt-2">
                                                     <router-link :to="{ name:'bahanBaku.detail', params:{id:bahan_baku.id}}" class="btn btn-sm btn-primary shadow-sm mb-2">
-                                                        <i class="fas fa-plus fa-sm text-white-50"></i> Stok
+                                                        <i class="fas fa-book-medical fa-sm text-white-50"></i> Histori
                                                     </router-link>
                                                     <button class="btn btn-sm btn-success shadow-sm mb-2"  @click.prevent="edit(bahan_baku.id, index)">
                                                         <i class="fas fa-highlighter fa-sm text-white-50"></i> Edit
@@ -92,7 +90,7 @@
             <div class="modal-body">
                 <form @submit.prevent="update()">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="labelNamaBahanBaku" placeholder="Loyang" v-model="data_bahan_baku.nama_bahan_baku">
+                        <input type="text" class="form-control" id="labelNamaBahanBaku" placeholder="Mentega" v-model="data_bahan_baku.nama_bahan_baku">
                         <label for="labelNamaBahanBaku">Nama Bahan Baku : </label>
                         <div v-if="validation.nama_bahan_baku" class="text-danger">
                             {{ validation.nama_bahan_baku[0] }}
@@ -130,7 +128,7 @@
             <div class="modal-body">
                 <form @submit.prevent="store()">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="labelNamaBahanBaku" placeholder="Loyang" v-model="data_bahan_baku.nama_bahan_baku">
+                        <input type="text" class="form-control" id="labelNamaBahanBaku" placeholder="Mentega" v-model="data_bahan_baku.nama_bahan_baku">
                         <label for="labelNamaBahanBaku">Nama Bahan Baku : </label>
                         <div v-if="validation.nama_bahan_baku" class="text-danger">
                             {{ validation.nama_bahan_baku[0] }}

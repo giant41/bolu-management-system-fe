@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <div class="card bg-transparent2">
+                                    <div class="card bg-transparent2" v-if="list_order_bahan_baku.data!=''">
                                         <button class="btn btn-order rounded-circle">
                                             <i class="fas fa-save fa-sm text-white-50"></i> Simpan
                                         </button>
@@ -97,7 +97,10 @@
                                             <th class="align-middle">
                                                 <div class="float-lg-end">
                                                     <button @click="showModal" type="button" class="btn btn-sm btn-primary shadow-sm text-white-60">
-                                                        <i class="fas fa-download fa-sm text-white-60"></i> Tambah Bahan Baku
+                                                        <i class="fas fa-plus"></i> Tambah
+                                                    </button>
+                                                    <button @click="clearData" type="button" class="btn btn-sm btn-warning ml-1 shadow-sm text-white-60">
+                                                        <i class="far fa-trash-alt"></i> Kosongkan
                                                     </button>
                                                  </div>   
                                             </th>
@@ -425,6 +428,7 @@ export default {
         function update() {
             axios.put(`temp-order/${data_bahan_baku.data_id}`, data_bahan_baku)
             .then(() => {
+                this.getData()
                 this.hideModalEdit()
             }).catch((err) => {
                 validation.value = err.response.data
@@ -467,13 +471,47 @@ export default {
             });  
         }
 
+        // clear daftar bahan baku
+        function clearData() {
+            Swal.fire({
+                // title: "Konfirmasi Hapus Data.",
+                icon: "warning",
+                text: "Apakah Anda Yakin? akan membersihkan data ini.?",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Nya, Gaskeun mang.!",
+                cancelButtonText: "Ulah Atuh",
+                allowOutsideClick: false,
+                timer: 10000
+            }).then((result) => {
+                if (result.value) {
+                    axios.get(`/temp-order/remove-by-userid`)
+                    .then(() => {
+                        Swal.fire({
+                            icon: "success",
+                            text: "data berhasil dihapus",
+                            showConfirmButton: false,
+                            timer: 1200
+                        });
+                        this.getData()
+                    }).catch((err) => {
+                        Swal.fire({
+                            icon: "error",
+                            text: "ada kesalahan, data gagal dihapus",
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    }); 
+                }
+            }); 
+        }
+
         // save order bahan baku
         function saveOrder() {
-            console.log(data_order);
             axios.post(`/order-bahan-baku`, data_order)
             .then(() => {
                 router.push({
-                    name: 'bahanBaku.index'
+                    name: 'bahanBaku.listOrder'
                 });
             }).catch((err) => {
                 validation.value = err.response.data
@@ -503,7 +541,8 @@ export default {
             generateOrderNumber,
             getLastOrder,
             bahan_baku_eksis,
-            nomorOrder
+            nomorOrder,
+            clearData
         }
     },
 }
