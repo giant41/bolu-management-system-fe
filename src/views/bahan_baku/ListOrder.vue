@@ -16,8 +16,6 @@
                         <router-link  :to="{ name: 'bahanBaku.order' }" class="btn btn-primary btn-sm rounded shadow mb-3">
                             <i class="fas fa-download fa-sm text-white-60"></i> Order Bahan Baku
                         </router-link>
-
-
                     </div>
                     <!-- Content Row -->
                     <div class="row">
@@ -55,7 +53,7 @@
                                             <td class="align-middle">{{ bahan_baku.created_at }}</td>
                                             <td class="align-middle">
                                                 <div class="btn-group float-lg-end mt-2">
-                                                    <router-link :to="{ name:'bahanBaku.detail', params:{id:bahan_baku.id}}" class="btn btn-sm btn-primary shadow-sm mb-2">
+                                                    <router-link :to="{ name:'bahanBaku.orderDetail', params:{id:bahan_baku.id}}" class="btn btn-sm btn-primary shadow-sm mb-2">
                                                         <i class="fas fa-book-medical fa-sm text-white-50"></i> Detail
                                                     </router-link>
                                                 </div>
@@ -85,82 +83,6 @@
         </div>
     </div>
     <!-- End of Content Wrapper -->
-
-    <div class="modal fade" id="updateBahanBaku" tabindex="-1" aria-labelledby="updateBahanBakuLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateBahanBakuLabel">Update Data Bahan Baku</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form @submit.prevent="update()">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="labelNamaBahanBaku" placeholder="Mentega" v-model="data_bahan_baku.nama_bahan_baku">
-                        <label for="labelNamaBahanBaku">Nama Bahan Baku : </label>
-                        <div v-if="validation.nama_bahan_baku" class="text-danger">
-                            {{ validation.nama_bahan_baku[0] }}
-                        </div>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <select class="form-select" id="floatingSelect" v-model="data_bahan_baku.id_satuan">
-                            <option v-for="(satuan, index) in list_data_satuan.data" :key="index" v-bind:value="satuan.id">
-                                {{satuan.nama_satuan}}
-                            </option>
-                        </select>
-                        <label for="floatingSelect">Satuan : </label>
-                        <div v-if="validation.id_satuan" class="text-danger">
-                            {{ validation.id_satuan[0] }}
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <button class="btn btn-danger btn-sm float-end">
-                            <i class="fas fa-save fa-sm text-white-50"></i> Update
-                        </button>
-                    </div>
-                </form>
-            </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="tambahBahanBaku" tabindex="-1" aria-labelledby="tambahBhanBakuLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tambahBhanBakuLabel">Tambah Data Bahan Baku</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form @submit.prevent="store()">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="labelNamaBahanBaku" placeholder="Mentega" v-model="data_bahan_baku.nama_bahan_baku">
-                        <label for="labelNamaBahanBaku">Nama Bahan Baku : </label>
-                        <div v-if="validation.nama_bahan_baku" class="text-danger">
-                            {{ validation.nama_bahan_baku[0] }}
-                        </div>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <select class="form-select" id="floatingSelect" v-model="data_bahan_baku.id_satuan">
-                            <option v-for="(satuan, index) in list_data_satuan.data" :key="index" v-bind:value="satuan.id">
-                                {{satuan.nama_satuan}}
-                            </option>
-                        </select>
-                        <label for="floatingSelect">Satuan : </label>
-                        <div v-if="validation.id_satuan" class="text-danger">
-                            {{ validation.id_satuan[0] }}
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <button class="btn btn-danger btn-sm float-right">
-                            <i class="fas fa-save fa-sm text-white-50 dark"></i> Simpan
-                        </button>
-                    </div>
-                </form>
-            </div>
-            </div>
-        </div>
-    </div>
 </template>
 
 <script>
@@ -180,18 +102,8 @@ export default {
         Pagination
     },
     setup() {
-        // data binding
-        const data_bahan_baku = reactive({
-            'nama_bahan_baku': '',
-            'id_satuan': '',
-            'stok': 0
-        });
-
         // reactive state
         let list_data_pemesanan = ref([]);
-        let list_data_satuan = ref([]);
-        const validation = ref([]);
-        const Swal = useSwal();
         let currentPage = ref();
         let perPage = 10;
         let total = ref();
@@ -231,128 +143,11 @@ export default {
             });
         }
 
-        function getDataSatuan() {
-            axios.get(`satuan`)
-            .then((result) => {
-                list_data_satuan.value = result.data
-            }).catch((err) => {
-                console.log(err.response)
-            });
-        }
-
-        function showModal() {
-            this.getDataSatuan();
-            this.data_bahan_baku.nama_bahan_baku = ''
-            this.data_bahan_baku.id_satuan = '';
-            validation.value = ''
-
-            $('#tambahBahanBaku').modal('show');
-        }
-
-        function hideModal() {
-            $('#tambahBahanBaku').modal('hide');
-        }
-
-        function showModalEdit() {
-            $('#updateBahanBaku').modal('show');
-        }
-
-        function hideModalEdit() {
-            $('#updateBahanBaku').modal('hide');
-            this.data_bahan_baku.nama_bahan_baku = ''
-            this.data_bahan_baku.id_satuan = ''
-            validation.value = ''
-        }
-
-        function store() {
-            axios.post('bahan-baku', data_bahan_baku)
-            .then(() => {
-                this.hideModal()
-                let first_page = 1;
-                getData(first_page);
-            }).catch((err) => {
-                if(err.response) {
-                    validation.value = err.response.data
-                }    
-            });
-        }
-
-        function edit(id, index) {
-            this.getDataSatuan();
-            axios.get(`bahan-baku/${id}`)
-            .then((result) => {
-                data_bahan_baku.id = index
-                data_bahan_baku.data_id = result.data.data.id
-                data_bahan_baku.nama_bahan_baku = result.data.data.nama_bahan_baku
-                data_bahan_baku.id_satuan = result.data.data.satuan.id_satuan
-                showModalEdit()
-            }).catch((err) => {
-                console.log("something error")
-            });
-        }
-
-        function update() {
-            axios.put(`bahan-baku/${data_bahan_baku.data_id}`, data_bahan_baku)
-            .then((result) => {
-                this.hideModalEdit()
-                getData(currentPage.value);
-            }).catch((err) => {
-                validation.value = err.response.data
-            });
-        }
-
-        function confirmDelete(id, index) {
-            Swal.fire({
-                // title: "Konfirmasi Hapus Data.",
-                icon: "warning",
-                text: "Apakah Anda Yakin? akan menghapus data ini.?",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                confirmButtonText: "Nya, Gaskeun mang.!",
-                cancelButtonText: "Ulah Atuh",
-                allowOutsideClick: false,
-                timer: 10000
-            }).then((result) => {
-                if (result.value) {
-                    axios.delete(`bahan-baku/${id}`)
-                    .then(() => {
-                        Swal.fire({
-                            icon: "success",
-                            text: "data berhasil dihapus",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        // list_data_satuan.value.data.splice(index, 1)
-                        getData(currentPage.value);
-                    }).catch((err) => {
-                        Swal.fire({
-                            icon: "error",
-                            text: "ada kesalahan, data gagal dihapus",
-                            showConfirmButton: false,
-                            timer: 3000
-                        });
-                    }); 
-                }
-            });  
-        }
-
         return {
             list_data_pemesanan,
-            list_data_satuan,
-            data_bahan_baku,
             data_perpage,
-            validation,
-            showModal,
-            hideModal,
-            showModalEdit,
-            hideModalEdit,            
-            store,
-            edit,
-            update,
-            confirmDelete,
             onPageClick,
             getData,
-            getDataSatuan,
             searchData,
             currentPage,
             perPage,

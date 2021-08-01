@@ -66,6 +66,11 @@ const routes = [
         name: 'bahanBaku.listOrder',
         component: () => import("../views/bahan_baku/ListOrder.vue")
     },
+    {
+        path: '/pemesanan-bahan-baku-detail/:id',
+        name: 'bahanBaku.orderDetail',
+        component: () => import("../views/bahan_baku/DetailOrder.vue")
+    },
 ]
 
 const router = createRouter({
