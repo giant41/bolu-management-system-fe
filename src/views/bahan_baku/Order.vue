@@ -156,7 +156,7 @@
             <div class="modal-body">
                 <form @submit.prevent="update()">
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="floatingSelect" v-model="data_bahan_baku.id_bahan_baku">
+                        <select class="form-select" disabled id="floatingSelect" v-model="data_bahan_baku.id_bahan_baku">
                             <option v-for="(bahan_baku, index) in list_data_bahan_baku.data" :key="index" v-bind:value="bahan_baku.id">
                                 {{bahan_baku.nama_bahan_baku}}
                             </option>

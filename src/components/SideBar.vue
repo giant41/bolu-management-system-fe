@@ -52,7 +52,7 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Data Produksi :</h6>
           <a class="collapse-item" href="../produksi">Produksi</a>
-          <a class="collapse-item" href="../resep">Resep</a>
+          <router-link class="collapse-item" :to="{ name: 'resep.index' }">Resep</router-link>
         </div>
       </div>
     </li>

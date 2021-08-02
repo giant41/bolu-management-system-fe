@@ -68,8 +68,19 @@ const routes = [
     },
     {
         path: '/pemesanan-bahan-baku-detail/:id',
+        // path: '/pemesanan-bahan-baku-detail',
         name: 'bahanBaku.orderDetail',
         component: () => import("../views/bahan_baku/DetailOrder.vue")
+    },
+    {
+        path: '/resep',
+        name: 'resep.index',
+        component: () => import("../views/resep/Index.vue")
+    },
+    {
+        path: '/resep-detail/:id',
+        name: 'resep.detail',
+        component: () => import("../views/resep/Detail.vue")
     },
 ]
 
