@@ -11,10 +11,10 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between m-3 mb-4">
-                        <h1 class="h3 mb-0 text-dark">Data Resep Detail</h1>
+                        <h1 class="h3 mb-0 text-dark">Histori Data Produk</h1>
                         <!-- <div class="col-2"> -->
                             <router-link 
-                                :to="{ name: 'resep.index' }"
+                                :to="{ name: 'produk.index' }"
                                 class="btn btn-sm btn-primary shadow-sm text-white-60"
                             >Back</router-link>
                         <!-- </div> -->
@@ -28,35 +28,22 @@
                             <div class="row">
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-success text-white shadow">
-                                        <div class="card-body" v-if="data_resep">
+                                        <div class="card-body" v-if="data_produk">
                                             <div class="row">
                                                 <div class="col-sm-4 text-white-50 small">Nama Resep</div>
                                                 <div class="col-sm-1 text-white-50 small"> : </div>
-                                                <div class="col-sm-7" v-if="data_resep">{{data_resep.data.nama_resep}}</div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12 text-white-50 small" v-if="data_resep">*{{data_resep.data.keterangan}}</div>
+                                                <div class="col-sm-7" v-if="data_produk">{{data_produk.data.nama_produk}}</div>
                                             </div>
                                             <hr class="sidebar-divider">
                                             <div class="row">
-                                                <div class="col-sm-4 text-white-50 small">Created by</div>
-                                                <div class="col-sm-1 text-white-50 small"> : </div>
-                                                <div class="col-sm-7" v-if="data_resep">{{data_resep.data.created_by}}</div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="col-sm-4 text-white-50 small">Created At</div>
                                                 <div class="col-sm-1 text-white-50 small"> : </div>
-                                                <div class="col-sm-7" v-if="data_resep">{{data_resep.data.created_at}}</div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-4 text-white-50 small">Updated by</div>
-                                                <div class="col-sm-1 text-white-50 small"> : </div>
-                                                <div class="col-sm-7" v-if="data_resep">{{data_resep.data.updated_by}}</div>
+                                                <div class="col-sm-7" v-if="data_produk">{{data_produk.data.created_at}}</div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-4 text-white-50 small">Updated At</div>
                                                 <div class="col-sm-1 text-white-50 small"> : </div>
-                                                <div class="col-sm-7" v-if="data_resep">{{data_resep.data.updated_at}}</div>
+                                                <div class="col-sm-7" v-if="data_produk">{{data_produk.data.updated_at}}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -68,36 +55,30 @@
                             <div class="card shadow m-3 mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Detail Bahan Baku Pada Resep ini</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Histori perubahan Harga</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <table class="table table-striped table-hover">
                                         <thead>
                                         <tr>
-                                            <th>Nama Bahan Baku</th>
-                                            <th>Jumlah Takaran</th>
-                                            <th>Keterangan</th>
-                                            <th>Created By</th>
-                                            <th>Updated By</th>
+                                            <th>Harga Dasar</th>
+                                            <th>Harga Jual</th>
                                             <th>Created At </th>
                                             <th>Updated At </th>
                                             <th class="align-middle">
                                                 <div class="float-lg-end ">
                                                     <button @click="showModal" type="button" class="btn btn-sm btn-primary shadow-sm text-white-60">
-                                                        <i class="fas fa-download fa-sm text-white-60"></i> Tambah Bahan Baku
+                                                        <i class="fas fa-download fa-sm text-white-60"></i> Update Harga
                                                     </button>
                                                 </div>    
                                             </th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(detail, index) in list_resep_bahan_baku.data" :key="index">
-                                            <td class="align-middle">{{ detail.bahan_baku.nama_bahan_baku }}</td>
-                                            <td class="align-middle">{{ detail.bahan_baku.jumlah_bahan_baku }} {{ detail.bahan_baku.simbol_satuan }}</td>
-                                            <td class="align-middle">{{ detail.keterangan }}</td>
-                                            <td class="align-middle">{{ detail.created_by }}</td>
-                                            <td class="align-middle">{{ detail.updated_by }}</td>
+                                        <tr v-for="(detail, index) in list_harga_produk.data" :key="index">
+                                            <td class="align-middle">{{ detail.harga_dasar }}</td>
+                                            <td class="align-middle">{{ detail.harga_jual }}</td>
                                             <td class="align-middle">{{ detail.created_at }}</td>
                                             <td class="align-middle">{{ detail.updated_at }}</td>
                                             <td class="align-middle">
@@ -136,36 +117,28 @@
     </div>
     <!-- End of Content Wrapper -->
 
-    <div class="modal fade" id="updateBahanBaku" tabindex="-1" aria-labelledby="updateBahanBakuLabel" aria-hidden="true">
+    <div class="modal fade" id="updateHarga" tabindex="-1" aria-labelledby="updateHargaLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateBahanBakuLabel">Update Data Bahan Baku</h5>
+                <h5 class="modal-title" id="updateHargaLabel">Update Data Harga</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form @submit.prevent="update()">
                     <div class="form-floating mb-3">
-                        <select class="form-select" disabled id="floatingSelect" v-model="data_bahan_baku.id_bahan_baku">
-                            <option v-for="(bahan_baku, index) in list_data_bahan_baku.data" :key="index" v-bind:value="bahan_baku.id">
-                                {{bahan_baku.nama_bahan_baku}}
-                            </option>
-                        </select>
-                        <label for="floatingSelect">Bahan Baku : </label>
-                        <div v-if="validation.id_bahan_baku" class="text-danger">
-                            {{ validation.id_bahan_baku[0] }}
+                        <input type="number" min="0" class="form-control" id="labelJumlahBahanBaku" placeholder="100" v-model="data_harga.harga_dasar">
+                        <label for="labelJumlahBahanBaku">Harga Dasar : </label>
+                        <div v-if="validation.harga_dasar" class="text-danger">
+                            {{ validation.harga_dasar[0] }}
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" min="0" step="0.1"  class="form-control" id="labelJumlahBahanBaku" placeholder="100" v-model="data_bahan_baku.jumlah_bahan_baku">
-                        <label for="labelJumlahBahanBaku">Jumlah Bahan Baku : </label>
-                        <div v-if="validation.jumlah_bahan_baku" class="text-danger">
-                            {{ validation.jumlah_bahan_baku[0] }}
+                        <input type="number" min="0" class="form-control" id="labelJumlahBahanBaku" placeholder="100" v-model="data_harga.harga_jual">
+                        <label for="labelJumlahBahanBaku">Harga Jual : </label>
+                        <div v-if="validation.harga_jual" class="text-danger">
+                            {{ validation.harga_jual[0] }}
                         </div>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="keterangan" id="labelketerangan" style="height: 100px"  v-model="data_bahan_baku.keterangan"></textarea>
-                        <label for="labelketerangan" class="form-label">Keterangan : </label>
                     </div>
                     <div class="mb-3">
                         <button class="btn btn-danger btn-sm float-end">
@@ -178,36 +151,28 @@
         </div>
     </div>
 
-    <div class="modal fade" id="tambahBahanBaku" tabindex="-1" aria-labelledby="tambahBhanBakuLabel" aria-hidden="true">
+    <div class="modal fade" id="tambahHarga" tabindex="-1" aria-labelledby="tambahHargaLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tambahBhanBakuLabel">Tambah Data Bahan Baku</h5>
+                <h5 class="modal-title" id="tambahHargaLabel">Tambah Harga</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form @submit.prevent="store()">
                     <div class="form-floating mb-3">
-                        <select class="form-select" id="floatingSelect" v-model="data_bahan_baku.id_bahan_baku">
-                            <option v-for="(bahan_baku, index) in list_data_bahan_baku.data" :key="index" v-bind:value="bahan_baku.id">
-                                {{bahan_baku.nama_bahan_baku}}
-                            </option>
-                        </select>
-                        <label for="floatingSelect">Bahan Baku : </label>
-                        <div v-if="validation.id_bahan_baku" class="text-danger">
-                            {{ validation.id_bahan_baku[0] }}
+                        <input type="number" min="0" class="form-control" id="labelJumlahBahanBaku" placeholder="100" v-model="data_harga.harga_dasar">
+                        <label for="labelJumlahBahanBaku">Harga Dasar : </label>
+                        <div v-if="validation.harga_dasar" class="text-danger">
+                            {{ validation.harga_dasar[0] }}
                         </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" min="0" step="0.1" class="form-control" id="labelJumlahBahanBaku" placeholder="100" v-model="data_bahan_baku.jumlah_bahan_baku">
-                        <label for="labelJumlahBahanBaku">Jumlah Bahan Baku : </label>
-                        <div v-if="validation.jumlah_bahan_baku" class="text-danger">
-                            {{ validation.jumlah_bahan_baku[0] }}
+                        <input type="number" min="0" class="form-control" id="labelJumlahBahanBaku" placeholder="100" v-model="data_harga.harga_jual">
+                        <label for="labelJumlahBahanBaku">Harga Jual : </label>
+                        <div v-if="validation.harga_jual" class="text-danger">
+                            {{ validation.harga_jual[0] }}
                         </div>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <textarea class="form-control" placeholder="keterangan" id="labelketerangan" style="height: 100px"  v-model="data_bahan_baku.keterangan"></textarea>
-                        <label for="labelketerangan" class="form-label">Keterangan : </label>
                     </div>
                     <div class="mb-3">
                         <button class="btn btn-danger btn-sm float-right">
@@ -240,16 +205,14 @@ export default {
     },
     setup() {
         // data binding
-        const data_bahan_baku = reactive({
-            'jumlah_bahan_baku': '',
-            'id_bahan_baku': '',
-            'keterangan': ''
+        const data_harga = reactive({
+            'harga_dasar': '',
+            'harga_jual': ''
         });
 
         // reactive state
-        let data_resep = ref();
-        let list_resep_bahan_baku = ref([]);
-        let list_data_bahan_baku = ref([]);
+        let data_produk = ref();
+        let list_harga_produk = ref([]);
         const validation = ref([]);
         const Swal = useSwal();
         let currentPage = ref();
@@ -284,18 +247,18 @@ export default {
         }
 
         function getData() {
-            axios.get(`/resep/detail-resep/${route.params.id}`)
+            axios.get(`/produk/${route.params.id}`)
             .then((res) => {
-                data_resep.value = res.data
+                data_produk.value = res.data
             }).catch((err) => {
                 console.log(err.response)
             });
         }
 
         function getDataDetail(page) {
-            axios.post(`/resep-detail/list`, data_perpage)
+            axios.post(`/harga-produk/list`, data_perpage)
             .then((result) => {
-                list_resep_bahan_baku.value = result.data
+                list_harga_produk.value = result.data
                 currentPage.value = page; 
                 total.value = result.data.total;
             }).catch((err) => {
@@ -303,86 +266,51 @@ export default {
             });
         }
 
-        // get all data bahan baku
-        function getDataBahanBaku() {
-            axios.get(`bahan-baku/alldata`)
-            .then((result) => {
-                list_data_bahan_baku.value = result.data
-            }).catch((err) => {
-                console.log(err.response)
-            });
-        }
-
         function showModal() {
-            this.getDataBahanBaku();
-            this.data_bahan_baku.id_resep = route.params.id;
-            this.data_bahan_baku.id_bahan_baku = '';
-            this.data_bahan_baku.jumlah_bahan_baku = ''
-            this.data_bahan_baku.keterangan = ''
+            this.data_harga.id_produk = route.params.id;
+            this.data_harga.harga_dasar = '';
+            this.data_harga.harga_jual = ''
             validation.value = ''
-
-            $('#tambahBahanBaku').modal('show');
+            $('#tambahHarga').modal('show');
         }
 
         function hideModal() {
-            $('#tambahBahanBaku').modal('hide');
+            $('#tambahHarga').modal('hide');
         }
 
         function showModalEdit() {
-            $('#updateBahanBaku').modal('show');
+            $('#updateHarga').modal('show');
         }
 
         function hideModalEdit() {
-            $('#updateBahanBaku').modal('hide');
-            this.data_bahan_baku.id_bahan_baku = '';
-            this.data_bahan_baku.jumlah_bahan_baku = ''
-            this.data_bahan_baku.keterangan = ''
+            $('#updateHarga').modal('hide');
+            this.data_harga.id_produk = '';
+            this.data_harga.harga_dasar = ''
+            this.data_harga.harga_jual = ''
             validation.value = ''
         }
 
         function store() {
-            axios.post('/resep-detail/resep-by-id', data_bahan_baku)
-            .then((res) => {
-                if (res.data.data.length == 1) {
-                    // update last data
-                    axios.put(`/resep-detail/${res.data.data[0].id}`, data_bahan_baku)
-                    .then(() => {
-                        this.getDataDetail()
-                    }).catch((err) => {
-                        validation.value = err.response.data
-                    });
-                } else {
-                    // add new data to resep table
-                    axios.post('/resep-detail', data_bahan_baku)
-                    .then(() => {
-                        let first_page = 1;
-                        getDataDetail(first_page);
-                    }).catch((err) => {
-                        if(err.response) {
-                            validation.value = err.response.data
-                        }    
-                    });
-                }
-
+            axios.post('/harga-produk', data_harga)
+            .then(() => {
+                let first_page = 1;
+                getDataDetail(first_page);
                 this.hideModal()
             }).catch((err) => {
                 if(err.response) {
-                    console.log('emmm ada yg salah!!');
+                    validation.value = err.response.data
                 }    
             });
         }
 
         function edit(id, index) {
-            this.getDataBahanBaku();
-            console.log(id);
-            axios.get(`/resep-detail/${id}`)
+            axios.get(`/harga-produk/${id}`)
             .then((result) => {
-                data_bahan_baku.id = index
-                data_bahan_baku.id_resep = route.params.id;
-                data_bahan_baku.data_id = result.data.data.id;
-                data_bahan_baku.id_bahan_baku = result.data.data.id_bahan_baku
-                data_bahan_baku.jumlah_bahan_baku = result.data.data.jumlah_bahan_baku
-                data_bahan_baku.keterangan = result.data.data.keterangan
+                data_harga.id = index
+                data_harga.id_produk = route.params.id;
+                data_harga.data_id = result.data.data.id;
+                data_harga.harga_dasar = result.data.data.harga_dasar
+                data_harga.harga_jual = result.data.data.harga_jual
                 showModalEdit()
             }).catch((err) => {
                 console.log("something error")
@@ -390,7 +318,7 @@ export default {
         }
 
         function update() {
-            axios.put(`/resep-detail/${data_bahan_baku.data_id}`, data_bahan_baku)
+            axios.put(`/harga-produk/${data_harga.data_id}`, data_harga)
             .then((result) => {
                 this.hideModalEdit()
                 getDataDetail(currentPage.value);
@@ -412,7 +340,7 @@ export default {
                 timer: 10000
             }).then((result) => {
                 if (result.value) {
-                    axios.delete(`/resep-detail/${id}`)
+                    axios.delete(`/harga-produk/${id}`)
                     .then(() => {
                         Swal.fire({
                             icon: "success",
@@ -434,10 +362,9 @@ export default {
         }
 
         return {
-            list_resep_bahan_baku,
-            data_resep,
-            list_data_bahan_baku,
-            data_bahan_baku,
+            list_harga_produk,
+            data_produk,
+            data_harga,
             data_perpage,
             validation,
             showModal,
@@ -451,7 +378,6 @@ export default {
             onPageClick,
             getData,
             getDataDetail,
-            getDataBahanBaku,
             searchData,
             currentPage,
             perPage,

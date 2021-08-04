@@ -51,7 +51,8 @@
       <div id="dataProduksi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Data Produksi :</h6>
-          <a class="collapse-item" href="../produksi">Produksi</a>
+          <router-link class="collapse-item" :to="{ name: 'produksi.index' }">Produksi</router-link>
+          <router-link class="collapse-item" :to="{ name: 'produk.index' }">Produk</router-link>
           <router-link class="collapse-item" :to="{ name: 'resep.index' }">Resep</router-link>
         </div>
       </div>

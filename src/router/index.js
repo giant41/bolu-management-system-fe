@@ -82,6 +82,21 @@ const routes = [
         name: 'resep.detail',
         component: () => import("../views/resep/Detail.vue")
     },
+    {
+        path: '/produk',
+        name: 'produk.index',
+        component: () => import("../views/produk/Index.vue")
+    },
+    {
+        path: '/harga-produk/:id',
+        name: 'produk.harga',
+        component: () => import("../views/produk/HargaProduk.vue")
+    },
+    {
+        path: '/produksi',
+        name: 'produksi.index',
+        component: () => import("../views/produksi/Index.vue")
+    },
 ]
 
 const router = createRouter({
